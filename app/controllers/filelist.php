@@ -1,6 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Controllers;
+
+use App\Core\MainController;
+use App\Models\Users;
+
 class FileList extends MainController
 {
     public function index()
@@ -11,31 +15,31 @@ class FileList extends MainController
             $user = new Users();
             $users = $user->getAllUser();
             $allUsers = [];
-            foreach ($users as $u){
-                if ($u['photo']){
-                    $allUsers[] =$u;
+            foreach ($users as $u) {
+                if ($u['photo']) {
+                    $allUsers[] = $u;
                 }
             }
             $data['allUsers'] = $allUsers;
             $data['uploads_dir'] = $this->uploads_dir;
-            if ($_GET['delete']){
+            if ($_GET['delete']) {
                 $id = $_GET['delete'];
                 $currentUser = $user->getUserById($id);
                 $photoPas = $this->uploads_dir . '/' . $currentUser['photo'] . '.jpg';
-                if ($user->deletePhoto($id)){
-                    if(file_exists($photoPas)){
+                if ($user->deletePhoto($id)) {
+                    if (file_exists($photoPas)) {
                         unlink($photoPas);
-                    }else{
+                    } else {
                         $data['error'] = 'Ошибка удаления';
                     }
-                    $this->redirect('filelist', $data);
+                    $this->redirect('filelist');
                 } else {
                     $data['error'] = 'Ошибка удаления';
                 }
             }
             $this->view->render('filelist', $data);
-        }else{
-            $this->redirect('/', $data);
+        } else {
+            $this->redirect('/');
         }
     }
 }

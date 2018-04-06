@@ -1,10 +1,10 @@
 <?php
 session_start();
+require_once __DIR__ . "/../vendor/autoload.php";
+define ("TEMPLATE_DIR",realpath(__DIR__ . '/../app/views'));
+
 $appDir = realpath(__DIR__ . '/../app');
-require_once ($appDir . DIRECTORY_SEPARATOR . "core/config.php");
-require_once ($appDir . DIRECTORY_SEPARATOR . "core/MainController.php");
-require_once ($appDir . DIRECTORY_SEPARATOR . "core/view.php");
-require_once ($appDir . DIRECTORY_SEPARATOR . "models/users.php");
+new \App\Core\BootLoader();
 
 $routes = explode('/', $_SERVER['REQUEST_URI']);
 $controller_name = "Main";
@@ -27,7 +27,7 @@ try {
     } else {
         throw new Exception("File not found");
     }
-    $classname = '\App\\'.ucfirst($controller_name);
+    $classname = '\App\Controllers\\'.ucfirst($controller_name);
     if (class_exists($classname)) {
         $controller = new $classname();
     } else {

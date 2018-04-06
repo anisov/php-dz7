@@ -94,9 +94,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="photo" class="col-sm-2 control-label">Пароль</label>
+                <label for="photo" class="col-sm-2 control-label">Фото</label>
                 <div class="col-sm-10">
-                    <input type="file" name="photo" class="form-control" id="photo" placeholder="Пароль">
+                    <input type="file" name="photo" class="form-control" id="photo" placeholder="Фото">
                     <?= !empty($error['error-photo']) ? $error['error-photo'] : '' ?>
                 </div>
             </div>

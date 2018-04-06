@@ -1,12 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Core;
+
 class View
 {
     public function render(String $filename, array $data)
     {
+        $templateName = TEMPLATE_DIR . DIRECTORY_SEPARATOR . $filename . ".php";
         extract($data);
-        require_once __DIR__ . "/../views/" . $filename . ".php";
+        require $templateName;
         die();
     }
 }

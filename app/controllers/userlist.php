@@ -4,7 +4,10 @@
 //require_once($modelsDir . DIRECTORY_SEPARATOR . 'users.php');
 //require_once($coreDir . DIRECTORY_SEPARATOR . 'MainController.php');
 
-namespace App;
+namespace App\Controllers;
+
+use App\Core\MainController;
+use App\Models\Users;
 
 class UserList extends MainController
 {
@@ -17,24 +20,24 @@ class UserList extends MainController
             $allUsers = $user->getAllUser();
             $data['allUsers'] = $allUsers;
             $data['uploads_dir'] = $this->uploads_dir;
-            if ($_GET['delete']){
+            if ($_GET['delete']) {
                 $id = $_GET['delete'];
                 $currentUser = $user->getUserById($id);
                 $photoPas = $this->uploads_dir . '/' . $currentUser['photo'] . '.jpg';
-                if ($user->deleteUser($id)){
-                    if(file_exists($photoPas)){
+                if ($user->deleteUser($id)) {
+                    if (file_exists($photoPas)) {
                         unlink($photoPas);
-                    }else{
+                    } else {
                         $data['error'] = 'Ошибка удаления';
                     }
-                    $this->redirect('userlist', $data);
+                    $this->redirect('userlist');
                 } else {
                     $data['error'] = 'Ошибка удаления';
                 }
             }
             $this->view->render('list', $data);
-        }else{
-            $this->redirect('/', $data);
+        } else {
+            $this->redirect('/');
         }
     }
 }

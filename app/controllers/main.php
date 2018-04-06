@@ -1,7 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Controllers;
+
+use App\Core\MainController;
+use App\Models\Users;
+
 include('cryptPassword.php');
+
 class Main extends MainController
 {
     public function index()
@@ -11,15 +16,15 @@ class Main extends MainController
             $login = $_POST['login'];
             $password = $_POST['password'];
             $currentUser = $users->getUser($login);
-                if ($currentUser){
-                    $ownPassword = $currentUser['password'];
-                    $currentPassword = hash256($password);
-                    if ($ownPassword == $currentPassword){
-                        $_SESSION["user"] = $currentUser['name'];
-                    }
+            if ($currentUser) {
+                $ownPassword = $currentUser['password'];
+                $currentPassword = hash256($password);
+                if ($ownPassword == $currentPassword) {
+                    $_SESSION["user"] = $currentUser['name'];
                 }
+            }
         }
-        $data =[$_SESSION["user"]];
+        $data = [$_SESSION["user"]];
         $this->view->render('index', $data);
     }
 }

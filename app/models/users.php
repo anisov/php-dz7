@@ -1,6 +1,7 @@
 <?php
-namespace App;
-include('DBHConnect.php'); // без инклюда почему то не хотело работать, хотя везде работает
+
+namespace App\Models;
+
 class Users extends DBHConnect
 {
     function getAllUser()
@@ -37,13 +38,16 @@ class Users extends DBHConnect
         return true;
     }
 
-    function getMaxId(){
+    function getMaxId()
+    {
         $id = $this->DBH->prepare("SELECT max(id) FROM five_dz.users");
         $id->execute();
         $result = $id->fetchAll()[0]['max(id)'];
         return $result;
     }
-    function  deleteUser($id){
+
+    function deleteUser($id)
+    {
         $STH = $this->DBH->prepare("DELETE FROM `five_dz`.`users` WHERE `id`='$id';");
         $STH->execute();
         if ($STH->errorCode() !== "00000") {
@@ -51,7 +55,9 @@ class Users extends DBHConnect
         }
         return true;
     }
-    function  deletePhoto($id){
+
+    function deletePhoto($id)
+    {
         $STH = $this->DBH->prepare("UPDATE `five_dz`.`users` SET `photo`='' WHERE id=$id;");
         $STH->execute();
         return true;

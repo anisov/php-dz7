@@ -1,7 +1,5 @@
 <?php
-
-namespace App;
-
+namespace App\Models;
 abstract class DBHConnect
 {
     protected $DBH;
