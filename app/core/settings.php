@@ -1,10 +1,6 @@
 <?php
 $config = include('config.php');
 $config = $config['db'];
-require __DIR__ . '/../../vendor/autoload.php';
-
-use Illuminate\Database\Capsule\Manager as Capsule;
-
 $host = $config["host"];
 $db = $config["dbname"];
 $charset = $config["charset"];
